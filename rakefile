@@ -1,0 +1,38 @@
+task :default => 'test:run'
+
+TEST_APP_PID = '/tmp/achetepe_test_server.pid'
+
+namespace :test do
+
+  desc 'Start TestApp server'
+  task :start_server do
+    unless File.exist?(TEST_APP_PID)
+      require File.expand_path("./test/helper", File.dirname(__FILE__))
+
+      puts 'Starting TestApp server'
+
+      $pid = fork do
+        Rack::Server.start app: TestApp, Port: 9494, daemonize: true
+      end
+
+      system "echo #{$pid} > #{TEST_APP_PID}"
+
+      sleep(1.5)
+    end
+  end
+
+  desc 'Run tests'
+  task :run => [:start_server]  do
+    require File.expand_path("./test/helper", File.dirname(__FILE__))
+
+    Dir["test/**/*_test.rb"].each { |file| load file }
+  end
+
+  desc 'Stop TestApp Server'
+  task :stop_server do
+    puts "Stopping TestApp Server"
+    pid = File.read(TEST_APP_PID).to_i
+    Process.kill('SIGINT', pid)
+    system "rm #{TEST_APP_PID}"
+  end
+end
