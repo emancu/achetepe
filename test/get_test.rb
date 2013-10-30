@@ -3,7 +3,7 @@ require_relative './helper'
 Protest.describe 'Get' do
 
   it 'return a Net::HTTPOK on a valid url' do
-    response = Achetepe.get('http://localhost:9494/') do |response|
+    response = Achetepe.get(TestApp.url) do |response|
       assert response.class.ancestors.include?(Net::HTTPResponse)
     end
 
@@ -12,7 +12,7 @@ Protest.describe 'Get' do
   end
 
   it 'return a Net::HTTPNotFound' do
-    response = Achetepe.get('http://localhost:9494/not_found') do |response|
+    response = Achetepe.get(TestApp.url + 'not_found') do |response|
       assert response.class.ancestors.include?(Net::HTTPResponse)
     end
 
