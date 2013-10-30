@@ -10,12 +10,12 @@ namespace :test do
       require File.expand_path("./test/helper", File.dirname(__FILE__))
 
       puts 'Starting TestApp server'
-
-      $pid = fork do
-        Rack::Server.start app: TestApp, Port: 9494, daemonize: true
+      fork do
+        Rack::Server.start app: TestApp,
+                           Port: 9494,
+                           daemonize: true,
+                           pid: TEST_APP_PID
       end
-
-      system "echo #{$pid} > #{TEST_APP_PID}"
 
       sleep(1.5)
     end
