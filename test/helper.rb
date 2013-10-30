@@ -32,5 +32,28 @@ class TestApp < Cuba
         res.status = 404
       end
     end
+
+    on post do
+      on "slow_post" do
+        sleep(2)
+        res.write "It takes too much"
+      end
+
+      on "login" do
+
+        # POST /login, user: foo, pass: baz
+        on param("user"), param("pass") do |user, pass|
+          res.write "#{user}:#{pass}" #=> "foo:baz"
+        end
+
+        # If the params `user` and `pass` are not provided,
+        # this block will get executed.
+        on true do
+          res.status = 400
+          res.write "You need to provide user and pass!"
+        end
+      end
+
+    end
   end
 end
