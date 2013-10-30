@@ -48,4 +48,13 @@ As simple as
 
 ### POST
 
+    Achetepe.post('http://www.example.com/search.cgi', q: 'ruby') do |response|
+      puts response
+    end
+
+    # => #<Thread:0x007fc8c605ac80 sleep>
+    # => #<Net::HTTPBadGateway:0x007fc8c4bc2ca0>
+
+### PUT
+
 Coming soon..

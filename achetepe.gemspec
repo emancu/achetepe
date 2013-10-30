@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'achetepe'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.date = Time.now.strftime('%Y-%m-%d')
   s.summary = 'Asynchronous HTTP Requests using Threads'
   s.description = '`achetepe` is a small and simple library to execute a block of code after an asynchronous HTTP request.'
