@@ -7,9 +7,15 @@ class Achetepe
       uri = URI(url)
 
       Thread.new do
-        response = Net::HTTP.get_response(uri)
+        yield Net::HTTP.get_response(uri)
+      end
+    end
 
-        yield response
+    def post(url, params = {}, &block)
+      uri = URI(url)
+
+      Thread.new do
+        yield Net::HTTP.post_form(uri, params)
       end
     end
 
