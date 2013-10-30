@@ -4,7 +4,7 @@ Protest.describe 'Get' do
 
   it 'return a Net::HTTPOK on a valid url' do
     response = Achetepe.get(TestApp.url) do |response|
-      assert response.class.ancestors.include?(Net::HTTPResponse)
+      assert_equal response.class, Net::HTTPOK
     end
 
     assert_equal Thread, response.class
@@ -13,7 +13,7 @@ Protest.describe 'Get' do
 
   it 'return a Net::HTTPNotFound' do
     response = Achetepe.get(TestApp.url + 'not_found') do |response|
-      assert response.class.ancestors.include?(Net::HTTPResponse)
+      assert_equal response.class, Net::HTTPNotFound
     end
 
     assert_equal Thread, response.class
