@@ -29,7 +29,7 @@ Stop test server
 
 As simple as
 
-    $ gem install ork
+    $ gem install achetepe
 
 
 ## Getting started
